@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1= title
+  p 欢迎来到#[em 本地图书馆], 这是一个在MDN上作为示例开发的非常基础的Express网站。
+
+  h1 动态内容
+  
+  if error
+    p 获取动态内容出现错误
+  else
+    p 图书馆记录如下：
+
+    ul
+      li #[strong 书籍数量:] !{data.book_count}
+      li #[strong 副本数量:] !{data.book_instance_count}
+      li #[strong 可借阅副本数量:] !{data.book_instance_available_count} 
+      li #[strong 作者数量:] !{data.author_count}
+      li #[strong 类型数量:] !{data.genre_count}

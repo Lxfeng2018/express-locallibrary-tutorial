@@ -1,0 +1,49 @@
+extends layout
+
+block content
+  h1=title
+
+  form(method='POST' action='')
+    div.form-group
+      label(for='book') 书籍:
+      select#book.form-control(type='select' placeholder='选择书籍' name='book' required='true')
+        for book in book_list
+          if bookinstance
+            option(value=book._id selected=( book._id.toString() == bookinstance.book || book._id.toString() == bookinstance.book._id ? 'selected' : false)) #{book.title}
+          else
+            option(value=book._id) #{book.title}
+        
+    div.form-group
+      label(for='imprint') 出版社:
+      input#imprint.form-control(type='text' placeholder='出版信息' name='imprint' required='true' value=(undefined===bookinstance ? '' : bookinstance.imprint))
+    div.form-group
+      label(for='due_back') 可借日期:
+      input#due_back.form-control(type='date' name='due_back' value=(undefined===bookinstance ?"" : bookinstance.due_back_formatted))
+            
+    div.form-group
+      label(for='status') 状态:
+      select#status.form-control(type='select' placeholder='选择状态' name='status' required='true')
+        if bookinstance
+          if bookinstance.status == "馆藏维护"
+            option(value='馆藏维护' selected) 馆藏维护
+            option(value='可供借阅' ) 可供借阅
+            option(value='已借出') 已借出
+          else if bookinstance.status == "可供借阅"
+            option(value='馆藏维护' ) 馆藏维护
+            option(value='可供借阅' selected ) 可供借阅
+            option(value='已借出') 已借出
+          else if bookinstance.status == "已借出"
+            option(value='馆藏维护' ) 馆藏维护
+            option(value='可供借阅'  ) 可供借阅
+            option(value='已借出' selected) 已借出
+        else
+          option(value='馆藏维护') 馆藏维护
+          option(value='可供借阅') 可供借阅
+          option(value='已借出') 已借出
+
+    button.btn.btn-primary(type='submit') 提交
+
+  if errors 
+    ul
+      for error in errors
+        li!= error.msg

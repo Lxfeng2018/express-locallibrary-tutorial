@@ -1,0 +1,16 @@
+extends layout
+block content
+  h1 #{title}:#{bookinstance._id}
+  p 标题：#{book.title}
+  p 作者：#{book.author.name}
+  p 出版：#{bookinstance.imprint}
+
+  if bookinstance.status == "已借出"
+    p #[strong 该书籍副本处于借出状态，不可删除]
+  else
+    p #[strong 你确定要删除该书籍副本吗？]
+
+    form(method="POST" action="")
+      div.form-group
+        input#bookinstanceid.form-control(type="hidden",name="bookinstanceid", required="true", value=bookinstance._id)
+      button.btn.btn-primary(type="submit") 删除

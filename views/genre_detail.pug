@@ -1,0 +1,24 @@
+extends layout
+
+block content
+
+  h1 类型: #{genre.name}
+  
+  div(style='margin-left:20px;margin-top:20px')
+
+    h4 书籍列表
+    
+    dl
+    each book in genre_books
+      dt 
+        a(href=book.url) #{book.title}
+      dd #{book.summary}
+
+    else
+      p 该类型暂无书籍
+
+  hr
+  p
+    a(href=genre.url+"/delete") 删除类型
+  p
+    a(href=genre.url+"/update") 更新类型

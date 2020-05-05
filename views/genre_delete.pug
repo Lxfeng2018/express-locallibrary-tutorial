@@ -1,0 +1,21 @@
+extends layout
+block content
+  h1 #{title}:#{genre.name}
+
+  if genre_books.length
+    p #[strong 删除以下书籍之后才能删除该类型]
+    div(style="margin-left:20px;margin-top:20px")
+      h4 书籍
+      dl
+      each book in genre_books
+        hr
+        dt
+          a(href=book.url) #{book.title}
+        dd #{book.summary}
+  else 
+    p #[strong 你确定要删除该类型吗？]
+
+    form(method="POST" action="")
+      div.form-group
+        input#genreid.form-control(type="hidden",name="genreid", required="true", value=genre._id)
+      button.btn.btn-primary(type="submit") 删除
