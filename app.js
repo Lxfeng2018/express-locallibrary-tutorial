@@ -17,7 +17,7 @@ var app = express();
 
 // 设置 Mongoose 连接
 const mongoose = require('mongoose');
-const mongoDB = 'mongodb+srv://Gary:1165340217@cluster0-ad5bi.mongodb.net/test?retryWrites=true&w=majority';
+const mongoDB = process.env.MONGODB_URI || 'mongodb+srv://Gary:1165340217@cluster0-ad5bi.mongodb.net/test?retryWrites=true&w=majority';
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;// 让 mongoose 使用全局 Promise 库
 const db = mongoose.connection;// 取得默认连接
